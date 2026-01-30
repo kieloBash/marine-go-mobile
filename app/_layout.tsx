@@ -9,6 +9,8 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'nativewind';
 
+import { useFonts } from "expo-font";
+
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary
@@ -17,11 +19,22 @@ export {
 export default function RootLayout() {
   const { colorScheme } = useColorScheme();
 
+  const [loaded] = useFonts({
+    Raleway: require("../assets/fonts/Raleway-Regular.ttf"),
+    RalewayMedium: require("../assets/fonts/Raleway-Medium.ttf"),
+    RalewaySemiBold: require("../assets/fonts/Raleway-SemiBold.ttf"),
+    RalewayBold: require("../assets/fonts/Raleway-Bold.ttf"),
+  });
+
+  if (!loaded) return null;
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']}>
         <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-        <Stack />
+        <Stack
+          screenOptions={{ headerShown: false }}
+        />
         <PortalHost />
       </ThemeProvider>
     </QueryClientProvider>
