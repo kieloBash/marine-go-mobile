@@ -30,8 +30,8 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']}>
-        <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+      <ThemeProvider value={NAV_THEME['light']}>
+        <StatusBar style={'light'} />
         <Stack
           screenOptions={{ headerShown: false }}
         />
