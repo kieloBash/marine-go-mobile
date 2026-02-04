@@ -1,7 +1,8 @@
-import { InputField } from '@/components/global/icon-input-field'
+import { InputField } from '@/components/global/input-field'
 import PasswordInput from '@/components/global/password-input'
 import { Button } from '@/components/ui/button'
 import { Icon } from '@/components/ui/icon'
+import KeyboardView from '@/components/ui/keyboard-view'
 import { Label } from '@/components/ui/label'
 import { useRegister } from '@/hooks/use-register'
 import { toast } from '@/lib/toast'
@@ -11,11 +12,11 @@ import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 
 const Form = () => {
-    const [fullName, setFullName] = useState("");
-    const [email, setEmail] = useState("");
-    const [location, setLocation] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [fullName, setFullName] = useState("Kielo Bash Mercado");
+    const [email, setEmail] = useState("kielo_bash_mercado@dlsu.edu.ph");
+    const [location, setLocation] = useState("Makati City");
+    const [password, setPassword] = useState("User1234!");
+    const [confirmPassword, setConfirmPassword] = useState("User1234!");
 
     const { mutate, isPending } = useRegister();
 
@@ -78,7 +79,7 @@ const Form = () => {
                         value={password}
                         onChange={setPassword}
                         placeholder="Enter your password"
-                        className="flex-1 font-raleway"
+                        className="flex-1 text-black font-raleway placeholder:text-muted-foreground"
                     />
                 </View>
             </View>
@@ -91,7 +92,7 @@ const Form = () => {
                         value={confirmPassword}
                         onChange={setConfirmPassword}
                         placeholder="Confirm your password"
-                        className="flex-1 font-raleway"
+                        className="flex-1 text-black font-raleway placeholder:text-muted-foreground"
                     />
                 </View>
             </View>
@@ -139,7 +140,9 @@ export default function RegisterScreen() {
                     <Text className='text-center font-raleway text-muted-foreground'>Join thousands of marine conservation volunteers</Text>
                 </View>
 
-                <Form />
+                <KeyboardView>
+                    <Form />
+                </KeyboardView>
             </View>
         </>
     )

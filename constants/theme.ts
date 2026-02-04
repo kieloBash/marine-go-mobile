@@ -1,7 +1,14 @@
 const primaryColorLight = '#33a6c6'; // primary
 const primaryColorDark = '#33a6c6';  // adjust if needed
 
+const gradient1 = "#00A3AD"
+const gradient2 = "#006D75"
+
 export const Colors = {
+    gradient: {
+        start: gradient1,
+        end: gradient2
+    },
     light: {
         text: '#2c2f36',            // --text
         background: '#3eb0c0',      // --background

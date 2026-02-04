@@ -15,7 +15,7 @@ export const useRegister = () =>
         onSuccess: () => {
             toast.dismiss();
             toast.success("Account created successfully 🎉");
-            router.replace("/");
+            router.replace("/(auth)/verification");
         },
 
         onError: (error: any) => {

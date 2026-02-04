@@ -36,9 +36,31 @@ export const useLogin = () =>
         onError: (error: any) => {
             toast.dismiss();
 
-            toast.error(
-                error?.response?.data?.message ??
-                "Invalid email or password"
-            );
-        },
+            const message =
+                error?.response?.data?.message ?? "Invalid email or password";
+
+            if (message.toLowerCase().includes("email not verified")) {
+                toast.info("Please verify your email first.");
+
+                // Email used during login (better to capture it directly)
+                const email =
+                    error?.config?.data?.email ??
+                    JSON.parse(error?.config?.data || "{}")?.email;
+
+                if (!email) {
+                    toast.error("Missing email for verification");
+                    return;
+                }
+
+                router.push({
+                    pathname: "/(auth)/verification/[email]",
+                    params: { email },
+                });
+
+                return;
+            }
+
+            toast.error(message);
+        }
+
     });

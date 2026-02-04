@@ -1,103 +1,17 @@
-import PasswordInput from '@/components/global/password-input';
+import LoginModal from '@/components/global/login-modal';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
 import { Text } from '@/components/ui/text';
+import { Colors } from '@/constants/theme';
 import { useHealth } from '@/hooks/use-health';
-import { useLogin } from '@/hooks/use-login';
-import { toast } from '@/lib/toast';
 import { getToken, getUser } from '@/store/auth-store';
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from 'expo-router';
-import { FishIcon, LockIcon, MailIcon, MapPinIcon, MedalIcon, TrendingUpIcon, UsersIcon } from 'lucide-react-native';
+import { FishIcon, MapPinIcon, MedalIcon, TrendingUpIcon, UsersIcon } from 'lucide-react-native';
 import * as React from 'react';
-import { ActivityIndicator, Animated, Dimensions, Modal, TextInput, TouchableOpacity, View } from 'react-native';
+import { Animated, Dimensions, View } from 'react-native';
 
 const { height } = Dimensions.get("window");
-
-const LoginModal = (props: { anim: Animated.Value, isOpen: boolean, closeLogin: () => void }) => {
-  const [email, setEmail] = React.useState('user.onboarded@gmail.com')
-  const [password, setPassword] = React.useState('User1234!')
-
-  const { mutate, isPending } = useLogin();
-
-  async function handleLogin() {
-    if (!email || !password) {
-      toast.error("Email and password are required")
-      return
-    }
-
-    mutate({ email, password })
-  }
-
-  return (
-    <Modal transparent visible={props.isOpen} animationType="none">
-      <TouchableOpacity style={{
-        flex: 1,
-        backgroundColor: "rgba(0,0,0,0.4)",
-      }} onPress={props.closeLogin} />
-
-      <Animated.View
-        style={[
-          { transform: [{ translateY: props.anim }] },
-        ]}
-        className={"px-6 py-6 rounded-t-2xl absolute bottom-0 w-full h-[65%] bg-card"}
-      >
-        <View className='items-center justify-center gap-1 mb-8'>
-          <Text className='text-2xl font-raleway-semibold text-text'>Welcome Back!</Text>
-          <Text className='text-sm text-muted-foreground font-raleway'>Sign in to continue your journey</Text>
-        </View>
-        <View className='gap-2 mb-4'>
-          <Label htmlFor="email" nativeID='email'>Email Address</Label>
-          <View className='flex-row items-center justify-start gap-2 px-3 py-1 leading-5 border rounded-xl border-input bg-input/30 text-text'>
-            <Icon as={MailIcon} className='text-muted-foreground size-4' />
-            <TextInput id='email' className='w-full font-raleway' placeholder='your.email@example.com' value={email} onChangeText={setEmail}
-            />
-          </View>
-        </View>
-        <View className='gap-2 mb-4'>
-          <Label htmlFor="password" nativeID='password'>Password</Label>
-          <View className='flex-row items-center justify-start gap-2 px-3 py-1 leading-5 border rounded-xl border-input bg-input/30 text-text'>
-            <Icon as={LockIcon} className='text-muted-foreground size-4' />
-            <PasswordInput
-              value={password}
-              onChange={setPassword}
-              placeholder='Enter your password'
-              className='flex-1 font-raleway'
-            />
-          </View>
-        </View>
-        <View className='items-end mb-4'>
-          <Button variant={"link"} className='text-sm text-primary font-raleway-semibold'>
-            <Text>Forgot Password?</Text>
-          </Button>
-        </View>
-        <Button
-          variant={"default"}
-          size={"lg"}
-          className='w-full'
-          disabled={isPending}
-          onPress={handleLogin}>
-          {isPending ? (
-            <ActivityIndicator color="white" />
-          ) : (
-            <Text className="font-semibold text-white">Login</Text>
-          )}
-        </Button >
-
-        <Separator className='h-[1.5px] my-8' />
-
-        <View className='flex-row items-center justify-center gap-1'>
-          <Text className='text-sm text-muted-foreground font-raleway'>Don't have an account?</Text>
-          <Button onPress={() => {
-            router.push("/(auth)/register")
-          }} variant={"link"} size={"sm"} className='p-0 w-fit'><Text>Sign up</Text></Button>
-        </View>
-      </Animated.View>
-    </Modal>
-  );
-}
 
 export default function LandingScreen() {
   const { data } = useHealth();
@@ -127,7 +41,7 @@ export default function LandingScreen() {
   return (
     <>
       <LinearGradient
-        colors={["#00A3AD", "#006D75"]}
+        colors={[Colors.gradient.start, Colors.gradient.end]}
         className="flex-1"
       >
         <LoginModal anim={slideAnim} isOpen={isLoginVisible} closeLogin={closeLogin} />
