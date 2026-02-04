@@ -17,8 +17,8 @@ import { ActivityIndicator, Animated, Dimensions, Modal, TextInput, TouchableOpa
 const { height } = Dimensions.get("window");
 
 const LoginModal = (props: { anim: Animated.Value, isOpen: boolean, closeLogin: () => void }) => {
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
+  const [email, setEmail] = React.useState('user.onboarded@gmail.com')
+  const [password, setPassword] = React.useState('User1234!')
 
   const { mutate, isPending } = useLogin();
 

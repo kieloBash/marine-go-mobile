@@ -19,8 +19,18 @@ export const useLogin = () =>
             saveUser(data.payload.user);
             saveToken(data.payload.access_token);
 
-            toast.success("Welcome back 👋");
-            router.replace("/(protected)/dashboard");
+            if (!data.payload.user.isOnboarded) {
+                toast.success("Please add your information!")
+                router.replace("/(protected)/onboarding")
+            } else {
+                if (data.payload.user.role.name === "USER") {
+                    toast.success("Welcome back USER 👋");
+                    router.replace("/(protected)/(user)/(tabs)/home");
+                } else {
+                    toast.success("Welcome back PARTNER 👋");
+                    router.replace("/(protected)/(partner)/(tabs)/home");
+                }
+            }
         },
 
         onError: (error: any) => {

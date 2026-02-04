@@ -7,6 +7,11 @@ export type LoginResponse = {
         id: string;
         email: string;
         name?: string;
+        isOnboarded: boolean;
+        role: {
+            id: string;
+            name: string;
+        }
     };
 };
 

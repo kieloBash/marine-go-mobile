@@ -8,9 +8,10 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'nativewind';
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { useFonts } from "expo-font";
 import Toast from '@/components/ui/toast';
+import { useFonts } from "expo-font";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -30,17 +31,19 @@ export default function RootLayout() {
   if (!loaded) return null;
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider value={NAV_THEME['light']}>
-        <StatusBar style={'light'} />
-        <Stack
-          screenOptions={{ headerShown: true }}
-        >
-          <Stack.Screen name='index' options={{ headerShown: false }} />
-        </Stack>
-        <Toast />
-        <PortalHost />
-      </ThemeProvider>
-    </QueryClientProvider>
+    <SafeAreaProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider value={NAV_THEME['light']}>
+          <StatusBar style={'light'} />
+          <Stack
+            screenOptions={{ headerShown: false }}
+          >
+            <Stack.Screen name='index' options={{ headerShown: false }} />
+          </Stack>
+          <Toast />
+          <PortalHost />
+        </ThemeProvider>
+      </QueryClientProvider>
+    </SafeAreaProvider>
   );
 }
