@@ -18,3 +18,25 @@ export const login = async (email: string, password: string) => {
 
     return data;
 };
+
+export type RegisterPayload = {
+    name: string;
+    email: string;
+    city: string;
+    password: string;
+    confirmPassword: string;
+    role?: {
+        name: "USER" | "PARTNER";
+    };
+};
+
+export type RegisterResponse = {
+    id: string;
+    email: string;
+    message: string;
+}
+
+export const register = async (payload: RegisterPayload): Promise<ApiSuccessResponse<RegisterResponse>> => {
+    const { data } = await api.post<ApiSuccessResponse<RegisterResponse>>("/auth/register", payload);
+    return data;
+};

@@ -6,12 +6,13 @@ import { Separator } from '@/components/ui/separator';
 import { Text } from '@/components/ui/text';
 import { useHealth } from '@/hooks/use-health';
 import { useLogin } from '@/hooks/use-login';
+import { toast } from '@/lib/toast';
 import { getToken, getUser } from '@/store/auth-store';
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from 'expo-router';
 import { FishIcon, LockIcon, MailIcon, MapPinIcon, MedalIcon, TrendingUpIcon, UsersIcon } from 'lucide-react-native';
 import * as React from 'react';
-import { Animated, Dimensions, Modal, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Animated, Dimensions, Modal, TextInput, TouchableOpacity, View } from 'react-native';
 
 const { height } = Dimensions.get("window");
 
@@ -19,11 +20,11 @@ const LoginModal = (props: { anim: Animated.Value, isOpen: boolean, closeLogin: 
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
 
-  const { mutate, isPending, error } = useLogin();
+  const { mutate, isPending } = useLogin();
 
   async function handleLogin() {
     if (!email || !password) {
-      console.log("Email and password are required")
+      toast.error("Email and password are required")
       return
     }
 
@@ -76,8 +77,13 @@ const LoginModal = (props: { anim: Animated.Value, isOpen: boolean, closeLogin: 
           variant={"default"}
           size={"lg"}
           className='w-full'
+          disabled={isPending}
           onPress={handleLogin}>
-          <Text>Sign In</Text>
+          {isPending ? (
+            <ActivityIndicator color="white" />
+          ) : (
+            <Text className="font-semibold text-white">Login</Text>
+          )}
         </Button >
 
         <Separator className='h-[1.5px] my-8' />
@@ -93,7 +99,7 @@ const LoginModal = (props: { anim: Animated.Value, isOpen: boolean, closeLogin: 
   );
 }
 
-export default function Screen() {
+export default function LandingScreen() {
   const { data } = useHealth();
   const user = getUser();
   const token = getToken();

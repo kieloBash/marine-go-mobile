@@ -10,6 +10,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'nativewind';
 
 import { useFonts } from "expo-font";
+import Toast from '@/components/ui/toast';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -33,8 +34,11 @@ export default function RootLayout() {
       <ThemeProvider value={NAV_THEME['light']}>
         <StatusBar style={'light'} />
         <Stack
-          screenOptions={{ headerShown: false }}
-        />
+          screenOptions={{ headerShown: true }}
+        >
+          <Stack.Screen name='index' options={{ headerShown: false }} />
+        </Stack>
+        <Toast />
         <PortalHost />
       </ThemeProvider>
     </QueryClientProvider>
