@@ -1,73 +1,184 @@
-# Minimal Template
+# Go Marine -- 6 Week Development Plan
 
-This is a [React Native](https://reactnative.dev/) project built with [Expo](https://expo.dev/) and [React Native Reusables](https://reactnativereusables.com).
+**Tech Stack:** React Native (Expo), Next.js, NestJS, Supabase
+(Postgres), Prisma, JWT Authentication
 
-It was initialized using the following command:
+------------------------------------------------------------------------
 
-```bash
-npx @react-native-reusables/cli@latest init -t marine-go-mobile
-```
+## Overview
 
-## Getting Started
+This document outlines the 6-week Agile sprint plan for developing the
+Go Marine platform.
 
-To run the development server:
+System Components: - 📱 Mobile Application (React Native -- Volunteers &
+Partners) - 🖥 Admin Web Dashboard (Next.js -- Admin & Super Admin) - ⚙
+Backend API (NestJS -- JWT secured) - 🗄 Database (Supabase Postgres via
+Prisma ORM)
 
-```bash
-    npm run dev
-    # or
-    yarn dev
-    # or
-    pnpm dev
-    # or
-    bun dev
-```
+------------------------------------------------------------------------
 
-This will start the Expo Dev Server. Open the app in:
+# Week 1 -- Infrastructure & JWT Authentication
 
-- **iOS**: press `i` to launch in the iOS simulator _(Mac only)_
-- **Android**: press `a` to launch in the Android emulator
-- **Web**: press `w` to run in a browser
+## Backend (NestJS)
 
-You can also scan the QR code using the [Expo Go](https://expo.dev/go) app on your device. This project fully supports running in Expo Go for quick testing on physical devices.
+-   Setup project structure
+-   Configure Prisma with Supabase Postgres
+-   Implement AuthModule, UsersModule, RolesModule
+-   JWT Register/Login/Refresh
+-   JwtAuthGuard + RolesGuard
+-   Seed default roles + admin account
 
-## Adding components
+## Mobile (React Native)
 
-You can add more reusable components using the CLI:
+-   Login/Register screens
+-   SecureStore token storage
+-   Role-based routing
+-   Logout functionality
 
-```bash
-npx react-native-reusables/cli@latest add [...components]
-```
+## Admin (Next.js)
 
-> e.g. `npx react-native-reusables/cli@latest add input textarea`
+-   Login page
+-   Protected admin layout
 
-If you don't specify any component names, you'll be prompted to select which components to add interactively. Use the `--all` flag to install all available components at once.
+### Milestone
 
-## Project Features
+-   Secure login working
+-   JWT enforced on protected routes
 
-- ⚛️ Built with [Expo Router](https://expo.dev/router)
-- 🎨 Styled with [Tailwind CSS](https://tailwindcss.com/) via [Nativewind](https://www.nativewind.dev/)
-- 📦 UI powered by [React Native Reusables](https://github.com/founded-labs/react-native-reusables)
-- 🚀 New Architecture enabled
-- 🔥 Edge to Edge enabled
-- 📱 Runs on iOS, Android, and Web
+------------------------------------------------------------------------
 
-## Learn More
+# Week 2 -- Event Management Core
 
-To dive deeper into the technologies used:
+## Backend
 
-- [React Native Docs](https://reactnative.dev/docs/getting-started)
-- [Expo Docs](https://docs.expo.dev/)
-- [Nativewind Docs](https://www.nativewind.dev/)
-- [React Native Reusables](https://reactnativereusables.com)
+-   Events CRUD (Partner only)
+-   Event registration endpoints
+-   Ownership validation
 
-## Deploy with EAS
+## Database
 
-The easiest way to deploy your app is with [Expo Application Services (EAS)](https://expo.dev/eas).
+-   events
+-   event_registrations
 
-- [EAS Build](https://docs.expo.dev/build/introduction/)
-- [EAS Updates](https://docs.expo.dev/eas-update/introduction/)
-- [EAS Submit](https://docs.expo.dev/submit/introduction/)
+## Mobile
 
----
+-   Event listing
+-   Event details
+-   Join event
+-   My events screen
 
-If you enjoy using React Native Reusables, please consider giving it a ⭐ on [GitHub](https://github.com/founded-labs/react-native-reusables). Your support means a lot!
+### Milestone
+
+-   Partner creates event
+-   User registers successfully
+
+------------------------------------------------------------------------
+
+# Week 3 -- QR Check-in & Attendance
+
+## Backend
+
+-   AttendanceModule
+-   Duplicate check prevention
+-   Unique constraint on eventId + registrationId
+
+## Mobile
+
+-   QR generator (user)
+-   QR scanner (partner)
+-   Manual fallback entry
+
+## Offline
+
+-   Store pending check-ins locally
+-   Sync when online
+
+### Milestone
+
+-   QR check-in functional
+-   Duplicate scans prevented
+
+------------------------------------------------------------------------
+
+# Week 4 -- Gamification System
+
+## Backend
+
+-   Points ledger
+-   Leaderboard endpoint
+-   Achievement evaluator
+
+## Mobile
+
+-   Leaderboard screen
+-   Achievements screen
+-   Points display in profile
+
+### Milestone
+
+-   Attendance grants points
+-   Leaderboard ranks correctly
+
+------------------------------------------------------------------------
+
+# Week 5 -- Partner Requests & Admin Governance
+
+## Backend
+
+-   Partner request submission
+-   Admin approval/rejection
+-   Role upgrade logic
+-   Reports export (CSV)
+
+## Admin Dashboard
+
+-   Manage users
+-   Manage partners
+-   Moderate events
+-   Export attendance reports
+
+### Milestone
+
+-   Partner approval flow complete
+-   Admin reporting functional
+
+------------------------------------------------------------------------
+
+# Week 6 -- Offline Sync, Hardening & Final Testing
+
+## Mobile
+
+-   Complete offline queue
+-   Background sync service
+-   Conflict handling
+
+## Backend
+
+-   Idempotent check-in endpoint
+-   DTO validation
+-   Rate limiting
+-   Audit logging
+
+## Documentation
+
+-   Setup guide
+-   Environment variables
+-   Database schema notes
+-   Demo flow
+
+### Milestone
+
+-   Offline sync stable
+-   System demo-ready
+-   Documentation complete
+
+------------------------------------------------------------------------
+
+# Sprint Tags
+
+v0.1-sprint1\
+v0.2-sprint2\
+v0.3-sprint3\
+v0.4-sprint4\
+v0.5-sprint5\
+v1.0-capstone-release
